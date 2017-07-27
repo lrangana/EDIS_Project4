@@ -1,5 +1,4 @@
 // server.js  //upload //lavy
-//EDIT added to git
 
 // setting up & getting all the tools we need
 var express  = require('express');
@@ -10,13 +9,13 @@ var mysql = require('mysql');
 
 
 //var port     = process.env.PORT || 8080;
-var port     = process.env.PORT || 7000;
+var port     = process.env.PORT || 6000;
 
 
 //redis variable
-var redis = require("redis");
+/*var redis = require("redis");
 var redisStore = require('connect-redis')(session);
-var client = redis.createClient(6379, 'redis-v2.gtjqw1.0001.use1.cache.amazonaws.com', {no_ready_check: true});
+var client = redis.createClient(6379, 'redis-v2.gtjqw1.0001.use1.cache.amazonaws.com', {no_ready_check: true});*/
 
 
 //MYSQL DB CONFIG
@@ -31,10 +30,13 @@ var client = redis.createClient(6379, 'redis-v2.gtjqw1.0001.use1.cache.amazonaws
 */
 
 var connection = mysql.createConnection({
-  host     : 'lavymysql.cnywgp1kyedu.us-east-1.rds.amazonaws.com',
+  host: 'localhost',
+  //host     : 'lavymysql.cnywgp1kyedu.us-east-1.rds.amazonaws.com',
   port	   : '3306',
   user     : 'root',
+  password: 'lavanya', //local
   password : 'lavanyar',
+  database: 'edis',
   database : 'Project1_DB'
 });
 
@@ -42,23 +44,28 @@ var connection = mysql.createConnection({
 //mysql connection
 var readpool = mysql.createPool({
 	connectionLimit: 500,
-	//host: 'edissdb.cf94n1xe54ku.us-east-1.rds.amazonaws.com',
-	host: 'lavymysql.cnywgp1kyedu.us-east-1.rds.amazonaws.com',
+	host: 'localhost',
+	//host: 'lavymysql.cnywgp1kyedu.us-east-1.rds.amazonaws.com',
 	port: '3306',
 	user: 'root',
-	password: 'lavanyar',
-	database: 'Project1_DB'
+	password: 'lavanya', //local
+	//password: 'lavanyar',
+	database: 'edis',
+	//database: 'Project1_DB'
+	
 });
 
 //mysql connection
 var writepool = mysql.createPool({
 	connectionLimit: 500,
-	//host: 'edissdb.cf94n1xe54ku.us-east-1.rds.amazonaws.com',
-	host: 'lavymysql.cnywgp1kyedu.us-east-1.rds.amazonaws.com',
+	host: 'localhost',
+	//host: 'lavymysql.cnywgp1kyedu.us-east-1.rds.amazonaws.com',
 	port: '3306',
 	user: 'root',
-	password: 'lavanyar',
-	database: 'Project1_DB'
+	password: 'lavanya', //local
+	//password: 'lavanyar',
+	database: 'edis',
+	//database: 'Project1_DB'
 });
 
 //ending add pool
@@ -78,7 +85,7 @@ app.use(session({
  resave: true,
   rolling: true,
   //redis store
-	store: new redisStore({ host: 'redis-v2.gtjqw1.0001.use1.cache.amazonaws.com', port: 6379, client: client,ttl :  260}),
+	//store: new redisStore({ host: 'redis-v2.gtjqw1.0001.use1.cache.amazonaws.com', port: 6379, client: client,ttl :  260}),
   saveUninitialized: false,
    cookie: { 
  expires:15*60*1000
